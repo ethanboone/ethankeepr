@@ -28,7 +28,7 @@ namespace keeprserver.Repositories
             return newVault;
         }
 
-        internal Vault Edit(int id, Vault newVault)
+        internal Vault Edit(Vault newVault)
         {
             string sql = @"
             UPDATE vaults
@@ -37,7 +37,7 @@ namespace keeprserver.Repositories
                 description = @Description,
                 isPrivate = @IsPrivate
             WHERE
-                id = @id;";
+                id = @Id;";
             _db.Execute(sql, newVault);
             return newVault;
         }
@@ -50,9 +50,7 @@ namespace keeprserver.Repositories
                 a.*
             FROM vaults v
             JOIN accounts a ON a.id = v.creatorId
-            WHERE v.id = @id
-                and 
-                isPrivate = false;";
+            WHERE v.id = @id;";
             return _db.Query<Vault, Account, Vault>(sql, (v, a) =>
                 {
                     v.Creator = a;

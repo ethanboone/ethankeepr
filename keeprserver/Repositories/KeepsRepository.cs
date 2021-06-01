@@ -92,14 +92,15 @@ namespace keeprserver.Repositories
             string sql = @"
             SELECT
                 k.*,
+                vk.id as vaultKeepId,
                 a.*,
-                vk.vaultId as vaultId,
-                vk.id as vaultKeepId
+                vk.vaultId as vaultId
             FROM vault_keep vk
             JOIN keeps k ON k.id = vk.keepId
             JOIN accounts a ON k.creatorId = a.id
             WHERE 
-                vaultId = @id;
+                vaultId = @id
+                ;
             ";
             return _db.Query<KeepRes, Profile, KeepRes>(sql, (k, a) =>
             {

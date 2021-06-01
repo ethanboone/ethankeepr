@@ -29,7 +29,7 @@ namespace keeprserver.Services
             {
                 throw new Exception("You are not the creator of this vault");
             }
-            return _repo.Edit(id, newVault);
+            return _repo.Edit(newVault);
         }
 
         internal bool Delete(int id, Account user)
@@ -47,12 +47,16 @@ namespace keeprserver.Services
             return _repo.GetAll();
         }
 
-        internal Vault GetOne(int id)
+        internal Vault GetOne(int id, Account user)
         {
             Vault vault = _repo.GetOne(id);
             if (vault == null)
             {
                 throw new Exception("Invalid Id");
+            }
+            if (vault.IsPrivate && vault.CreatorId != user.Id)
+            {
+                throw new Exception("This vault is private");
             }
             return vault;
         }

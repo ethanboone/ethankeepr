@@ -15,8 +15,8 @@ class KeepsService {
   }
 
   async create(body) {
-    const res = await api.post('api/keeps', body)
-    AppState.keeps.push(res.data)
+    await api.post('api/keeps', body)
+    this.getAll()
   }
 
   async update(id, body) {

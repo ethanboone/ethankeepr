@@ -8,10 +8,12 @@ namespace keeprserver.Services
     public class KeepsService
     {
         private readonly KeepsRepository _repo;
+        private readonly VaultsRepository _vaultRepo;
 
-        public KeepsService(KeepsRepository repo)
+        public KeepsService(KeepsRepository repo, VaultsRepository vaultRepo)
         {
             _repo = repo;
+            _vaultRepo = vaultRepo;
         }
 
         internal Keep Create(Keep newKeep)
@@ -58,14 +60,26 @@ namespace keeprserver.Services
             return _repo.Delete(id);
         }
 
-        internal List<KeepRes> GetKeepsByVault(int id)
+        internal List<KeepRes> GetKeepsByVault(int id, Account user)
         {
-            List<KeepRes> keeps = _repo.GetKeepsByVault(id);
-            if (keeps == null)
+            Vault vault = _vaultRepo.GetOne(id);
+            if (vault == null)
             {
                 throw new Exception("Invalid Vault id");
             }
-            return keeps;
+            else if (vault.IsPrivate == false || vault.CreatorId == user.Id)
+            {
+                List<KeepRes> keeps = _repo.GetKeepsByVault(id);
+                if (keeps == null)
+                {
+                    throw new Exception("Invalid Vault id");
+                }
+                return keeps;
+            }
+            else
+            {
+                throw new Exception("This is a private vault");
+            }
         }
     }
 }

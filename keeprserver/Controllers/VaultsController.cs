@@ -32,6 +32,7 @@ namespace keeprserver.Controllers
                 Account user = await HttpContext.GetUserInfoAsync<Account>();
                 newKeep.CreatorId = user.Id;
                 _service.Create(newKeep);
+                newKeep.Creator = user;
                 return Ok(newKeep);
             }
             catch (System.Exception e)
@@ -43,15 +44,15 @@ namespace keeprserver.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult<Vault>> Edit(int id, [FromBody] Vault newKeep)
+        public async Task<ActionResult<Vault>> Edit(int id, [FromBody] Vault newVault)
         {
             try
             {
                 Account user = await HttpContext.GetUserInfoAsync<Account>();
-                newKeep.Id = id;
-                newKeep.CreatorId = user.Id;
-                _service.Edit(id, newKeep);
-                return Ok(newKeep);
+                newVault.Id = id;
+                newVault.CreatorId = user.Id;
+                _service.Edit(id, newVault);
+                return Ok(newVault);
             }
             catch (System.Exception e)
             {
@@ -100,11 +101,12 @@ namespace keeprserver.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Vault> GetOne(int id)
+        public async Task<ActionResult<Vault>> GetOne(int id)
         {
             try
             {
-                Vault vault = _service.GetOne(id);
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                Vault vault = _service.GetOne(id, user);
                 return Ok(vault);
             }
             catch (System.Exception e)
@@ -131,11 +133,12 @@ namespace keeprserver.Controllers
 
 
         [HttpGet("{id}/keeps")]
-        public ActionResult<List<KeepRes>> GetKeepsByVault(int id)
+        public async Task<ActionResult<List<KeepRes>>> GetKeepsByVault(int id)
         {
             try
             {
-                List<KeepRes> keeps = _keepsService.GetKeepsByVault(id);
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                List<KeepRes> keeps = _keepsService.GetKeepsByVault(id, user);
                 return Ok(keeps);
             }
             catch (System.Exception e)

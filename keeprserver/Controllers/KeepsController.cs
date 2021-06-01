@@ -29,6 +29,7 @@ namespace keeprserver.Controllers
                 Account user = await HttpContext.GetUserInfoAsync<Account>();
                 newKeep.CreatorId = user.Id;
                 _service.Create(newKeep);
+                newKeep.Creator = user;
                 return Ok(newKeep);
             }
             catch (System.Exception e)
