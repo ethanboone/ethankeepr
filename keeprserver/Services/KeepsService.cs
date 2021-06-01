@@ -57,5 +57,15 @@ namespace keeprserver.Services
             }
             return _repo.Delete(id);
         }
+
+        internal List<KeepRes> GetKeepsByVault(int id)
+        {
+            List<KeepRes> keeps = _repo.GetKeepsByVault(id);
+            if (keeps == null)
+            {
+                throw new Exception("Invalid Vault id");
+            }
+            return keeps;
+        }
     }
 }

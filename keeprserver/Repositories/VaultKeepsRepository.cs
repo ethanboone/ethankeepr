@@ -34,6 +34,7 @@ namespace keeprserver.Repositories
                 vk.id as vaultKeepId,
                 vk.vaultId as vaultId,
                 vk.keepId as keepId,
+                vk.creatorId as creatorId,
                 k.name as kName,
                 k.description as kDescription,
                 v.name as vName,
