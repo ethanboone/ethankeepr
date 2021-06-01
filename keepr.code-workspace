@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "name": "keeprclient",
+            "path": "keeprclient"
+        },
+        {
+            "name": "keeprserver",
+            "path": "keeprserver"
+        }
+    ]
+}
