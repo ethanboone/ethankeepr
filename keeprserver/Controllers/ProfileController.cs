@@ -51,11 +51,12 @@ namespace keeprserver.Controllers
         }
 
         [HttpGet("{id}/vaults")]
-        public ActionResult<List<Vault>> GetVaultsByProfile(string id)
+        public async Task<ActionResult<List<Vault>>> GetVaultsByProfile(string id)
         {
             try
             {
-                List<Vault> vaults = _service.GetVaultsByProfile(id);
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                List<Vault> vaults = _service.GetVaultsByProfile(id, user);
                 return Ok(vaults);
             }
             catch (System.Exception e)

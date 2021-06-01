@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using keeprserver.Models;
 using keeprserver.Repositories;
 
@@ -50,13 +51,18 @@ namespace keeprserver.Services
         internal List<Keep> GetKeepsByProfile(string id)
         {
             List<Keep> keeps = _repo.GetKeepsByProfile(id);
+
             return keeps;
         }
 
-        internal List<Vault> GetVaultsByProfile(string id)
+        internal List<Vault> GetVaultsByProfile(string id, Account user)
         {
-            List<Vault> vaults = _repo.GetVaultsByProfile(id);
-            return vaults;
+            if (user != null && id == user.Id)
+            {
+                List<Vault> vaults = _repo.GetAllVaultsByProfile(id);
+                return vaults;
+            }
+            return _repo.GetVaultsByProfile(id);
         }
     }
 }

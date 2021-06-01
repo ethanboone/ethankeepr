@@ -69,7 +69,7 @@ namespace keeprserver.Repositories
             }, new { id }).ToList();
         }
 
-        internal List<Vault> GetVaultsByProfile(string id)
+        internal List<Vault> GetAllVaultsByProfile(string id)
         {
             string sql = @"
             SELECT 
@@ -78,6 +78,23 @@ namespace keeprserver.Repositories
             FROM vaults v
             JOIN accounts a ON a.id = v.creatorId
             WHERE v.creatorId = @id;
+            ";
+            return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
+            {
+                v.Creator = p;
+                return v;
+            }, new { id }).ToList();
+        }
+
+        internal List<Vault> GetVaultsByProfile(string id)
+        {
+            string sql = @"
+            SELECT 
+                v.*,
+                a.*
+            FROM vaults v
+            JOIN accounts a ON a.id = v.creatorId
+            WHERE v.creatorId = @id and v.isPrivate = false;
             ";
             return _db.Query<Vault, Profile, Vault>(sql, (v, p) =>
             {
