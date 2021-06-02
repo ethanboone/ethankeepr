@@ -11,7 +11,11 @@
       </div>
     </div>
     <div class="d-flex row my-5 justify-content-center" v-if="state.keeps">
-      <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+      <div class="col-12">
+        <div class="card-columns">
+          <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+        </div>
+      </div>
     </div>
     <div class="modal"
          id="newKeep"
