@@ -152,8 +152,8 @@ export default {
         try {
           const confirm = window.confirm('Are you sure you want to remove this keep from the vault?')
           if (confirm) {
-            await vaultKeepService.getVaultKeepByVaultAndKeepId(state.vault.id, id)
-            await vaultKeepService.delete(state.vaultKeep.id)
+            state.vaultKeep = await vaultKeepService.getVaultKeepByVaultAndKeepId(state.vault.id, id)
+            await vaultKeepService.delete(state.vaultKeep.data.id)
           }
         } catch (error) {
           logger.error(error)
