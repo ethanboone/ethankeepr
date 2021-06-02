@@ -50,14 +50,14 @@ namespace keeprserver.Repositories
             return vk;
         }
 
-        internal VaultKeep GetVaultKeepByKeepAndVaultId(int vaultId, int keepId)
+        internal VaultKeep GetVaultKeepByKeepAndVaultId(int id1, int id2)
         {
             string sql = @"
             SELECT * FROM vault_keep 
             WHERE 
-                vault_keep.vaultId = @vaultId
+                vault_keep.vaultId = @id1
                 and
-                vault_keep.keepId = @keepId
+                vault_keep.keepId = @id2
             LIMIT 1;
             ";
             VaultKeep vaultKeep = _db.Query<VaultKeep>(sql).FirstOrDefault();
