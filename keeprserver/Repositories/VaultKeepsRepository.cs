@@ -55,12 +55,10 @@ namespace keeprserver.Repositories
             string sql = @"
             SELECT * FROM vault_keep 
             WHERE 
-                vault_keep.vaultId = @id1
+                vaultId = @id1
                 and
-                vault_keep.keepId = @id2
-            LIMIT 1;
-            ";
-            VaultKeep vaultKeep = _db.Query<VaultKeep>(sql).FirstOrDefault();
+                keepId = @id2;";
+            VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { id1, id2 }).FirstOrDefault();
             return vaultKeep;
         }
 
