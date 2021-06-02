@@ -1,8 +1,8 @@
 <template>
-  <div class="col-5 col-md-2 mx-1 my-2 card rounded" v-if="state.account">
-    <div class="">
+  <div class="mx-1 my-2 card rounded" v-if="state.account">
+    <div class="m-2">
       <div class="d-flex justify-content-end" v-if="state.account.id == vault.creatorId">
-        <button type="button" class="close mb-3" @click="deleteVault(vault.id)">
+        <button type="button" class="close mb-1" @click="deleteVault(vault.id)">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

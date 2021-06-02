@@ -21,7 +21,7 @@
             <h3 class="d-flex mx-3">
               Vaults
             </h3>
-            <button class="btn btn-success" data-toggle="modal" data-target="#newVault" v-if="state.profile.id == state.account.id">
+            <button class="btn btn-outline-success" data-toggle="modal" data-target="#newVault" v-if="state.profile.id == state.account.id">
               +
             </button>
             <div class="modal"
@@ -76,9 +76,11 @@
             </div>
           </div>
         </div>
-        <div class="justify-content-center">
-          <div class="row d-flex my-5" v-if="state.vaults">
-            <Vault v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
+        <div class="d-flex row my-5 justify-content-center" v-if="state.keeps">
+          <div class="col-12">
+            <div class="card-columns">
+              <Vault v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +92,7 @@
             <h3 class="d-flex mx-3">
               Keeps
             </h3>
-            <button class="btn btn-success" data-toggle="modal" data-target="#newKeep" v-if="state.profile.id == state.account.id">
+            <button class="btn btn-outline-success" data-toggle="modal" data-target="#newKeep" v-if="state.profile.id == state.account.id">
               +
             </button>
             <div class="modal"

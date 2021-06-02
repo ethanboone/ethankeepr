@@ -4,7 +4,7 @@
       <div class="d-flex col-3">
         <h2>
           New Keep
-          <button class="btn btn-success" data-toggle="modal" data-target="#newKeep">
+          <button class="btn btn-outline-success" data-toggle="modal" data-target="#newKeep">
             +
           </button>
         </h2>
