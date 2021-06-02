@@ -1,6 +1,7 @@
 // import { AppState } from '../AppState'
 // import { logger } from '../utils/Logger'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
 class KeepsService {
@@ -24,9 +25,21 @@ class KeepsService {
     AppState.keeps.push(res.data)
   }
 
+  async userEdit(id, body) {
+    const res = await api.put(`api/keeps/${id}/edit`, body)
+    this.getAll()
+    logger.log(res.data)
+  }
+
   async delete(id) {
-    await api.delete(`api/keeps/${id}`)
-    AppState.keeps.filter(v => v.id !== id)
+    const res = await api.delete(`api/keeps/${id}`)
+    this.getAll()
+    return res.data
+  }
+
+  async getKeepsByVaultId(id) {
+    const res = await api.get(`api/vaults/${id}/keeps`)
+    AppState.vaultKeeps = res.data
   }
 }
 

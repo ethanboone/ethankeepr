@@ -87,6 +87,20 @@ namespace keeprserver.Repositories
             return keeps;
         }
 
+        internal Keep UserEdit(int id, Keep newKeep)
+        {
+            string sql = @"
+            UPDATE keeps
+            SET 
+                views= @Views,
+                shares= @Shares,
+                keeps= @Keeps
+            WHERE
+                id = @id;";
+            _db.Execute(sql, newKeep);
+            return newKeep;
+        }
+
         internal List<KeepRes> GetKeepsByVault(int id)
         {
             string sql = @"

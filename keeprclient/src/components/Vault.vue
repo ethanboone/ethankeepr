@@ -1,9 +1,11 @@
 <template>
   <div class="col-5 col-md-2 mx-1 my-2 card rounded">
     <div class="">
-      <button class="btn" @click="details">
-        {{ vault.name }}
-      </button>
+      <router-link :to="{name: 'Vault', params: {id: vault.id}}">
+        <h4>
+          {{ vault.name }}
+        </h4>
+      </router-link>
       <router-link :to="{name: 'Profile', params: {id: vault.creatorId}}">
         {{ vault.creator.img }}
         {{ vault.creator.name }}

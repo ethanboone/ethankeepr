@@ -1,16 +1,17 @@
 import { AppState } from '../AppState'
-// import { logger } from '../utils/Logger'
+import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
 class VaultKeepService {
   async getOne(id) {
-    const res = await api.get(`api/vaultkeep/${id}`)
+    const res = await api.get(`api/vaultkeeps/${id}`)
     AppState.vaultkeep = res.data
   }
 
   async create(body) {
-    const res = await api.post('api/vaultkeep', body)
+    const res = await api.post('api/vaultkeeps', body)
     AppState.vaultkeep.push(res.data)
+    logger.log(res.data)
   }
 
   async delete(id) {

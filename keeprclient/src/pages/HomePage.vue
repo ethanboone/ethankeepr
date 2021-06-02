@@ -86,11 +86,11 @@ export default {
   setup() {
     const state = reactive({
       keeps: computed(() => AppState.keeps),
-      newKeep: {}
+      newKeep: {},
+      account: computed(() => AppState.account)
     })
     onMounted(async() => {
       await keepsService.getAll()
-      logger.log(state.keeps)
     })
     return {
       state,

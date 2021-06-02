@@ -111,5 +111,20 @@ namespace keeprserver.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("{id}/edit")]
+        public ActionResult<Keep> UserEdit(int id, [FromBody] Keep newKeep)
+        {
+            try
+            {
+                Keep updated = _service.UserEdit(id, newKeep);
+                return Ok(updated);
+            }
+            catch (System.Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

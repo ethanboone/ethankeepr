@@ -55,9 +55,22 @@
                     </div>
                   </router-link>
                   <div class="d-flex">
-                    <button type="button-sm" class="btn btn-primary" @click="addToVault(keep.id, keep)">
-                      Add to vault
-                    </button>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle"
+                              type="button"
+                              id="dropdownMenuButton"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                      >
+                        Add To Vault
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item" type="button" v-for="vault in state.myVaults" :key="vault.id" @click="addToVault(keep.id, keep, vault.id)">
+                          {{ vault.name }}
+                        </button>
+                      </div>
+                    </div>
                     <button type="button-sm" class="btn btn-danger" v-if="state.account && state.account.id == keep.creatorId" @click="deleteKeep(keep.id)">
                       Delete
                     </button>
@@ -77,7 +90,7 @@ import { reactive, computed } from 'vue'
 import $ from 'jquery'
 import { keepsService } from '../services/KeepsService'
 import { AppState } from '../AppState'
-import swal from 'sweetalert'
+import { vaultKeepService } from '../services/VaultKeepService'
 
 export default {
   props: {
@@ -88,38 +101,29 @@ export default {
   },
   setup() {
     const state = reactive({
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      myVaults: computed(() => AppState.myVaults)
     })
     return {
       state,
       details(id, body) {
-        body.views++
-        keepsService.update(id, body)
         $(`#keep${id}`).modal('toggle')
       },
-      async addToVault(id, body) {
-
+      async addToVault(keepId, keep, vaultId) {
+        keep.keeps++
+        keepsService.userEdit(keepId, keep)
+        const body = {
+          keepId: keepId,
+          vaultId: vaultId
+        }
+        vaultKeepService.create(body)
       },
       async deleteKeep(id) {
         try {
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
-            }
-          })
-          await keepsService.delete(id)
+          const confirm = window.confirm('Are you sure you want to delete this keep?')
+          if (confirm) {
+            window.alert(await keepsService.delete(id))
+          }
         } catch (error) {
 
         }

@@ -81,5 +81,10 @@ namespace keeprserver.Services
                 throw new Exception("This is a private vault");
             }
         }
+
+        internal Keep UserEdit(int id, Keep newKeep)
+        {
+            return _repo.UserEdit(id, newKeep);
+        }
     }
 }
