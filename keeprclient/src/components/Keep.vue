@@ -1,16 +1,30 @@
 <template>
-  <div class="column mx-1 my-2 card rounded">
-    <div class="">
-      <button type="button" class="btn" data-toggle="modal" @click="details(keep.id, keep)">
-        <img :src="keep.img" class="w-100" alt="">
-        {{ keep.name }}
-      </button>
-      <router-link :to="{name: 'Profile', params: {id: keep.creatorId}}">
-        <div class="text-center my-2">
-          <img :src="keep.creator.picture" width="60" class="rounded-circle" alt="">
-          {{ keep.creator.name }}
+  <div class="column mx-1 my-2 rounded bg-card border-0">
+    <div class="border-0">
+      <div class="card bg-dark text-white border-0">
+        <img :src="keep.img" class="card-img" alt="keep image">
+        <div class="card-img-overlay p-0 d-flex align-items-end"
+             @click="details(keep.id, keep)"
+        >
+          <div class="m-0">
+            <div class="row transparent rounded m-0">
+              <div class="col-12 d-flex justify-content-center">
+                <h5 class="card-title mb-0">
+                  {{ keep.name }}
+                </h5>
+              </div>
+              <div class="col-12 d-flex justify-content-center">
+                <router-link :to="{name: 'Profile', params: {id: keep.creatorId}}">
+                  <div class="my-2">
+                    <img :src="keep.creator.picture" width="40" class="rounded-circle" alt="">
+                    {{ keep.creator.name }}
+                  </div>
+                </router-link>
+              </div>
+            </div>
+          </div>
         </div>
-      </router-link>
+      </div>
     </div>
     <div class="">
       <div class="modal" :id="'keep' + keep.id" tabindex="-1" aria-labelledby="keepModal" aria-hidden="true">
@@ -36,12 +50,6 @@
                   </h3>
                   <div class="d-flex flex-row">
                     <p class="mx-2">
-                      Views: {{ keep.views }}
-                    </p>
-                    <p class="mx-2">
-                      Shares: {{ keep.shares }}
-                    </p>
-                    <p class="mx-2">
                       Keeps: {{ keep.keeps }}
                     </p>
                   </div>
@@ -49,14 +57,14 @@
                     {{ keep.description }}
                   </p>
                   <router-link :to="{name: 'Profile', params: {id: keep.creatorId}}">
-                    <div class="my-2">
+                    <div class="router my-2">
                       <img :src="keep.creator.picture" width="60" class="rounded-circle" alt="">
                       {{ keep.creator.name }}
                     </div>
                   </router-link>
-                  <div class="d-flex">
+                  <div class="d-flex justify-content-center my-2">
                     <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle"
+                      <button class="btn btn-sm btn-outline-info dropdown-toggle"
                               type="button"
                               id="dropdownMenuButton"
                               data-toggle="dropdown"
@@ -71,7 +79,7 @@
                         </button>
                       </div>
                     </div>
-                    <button type="button-sm" class="btn btn-danger" v-if="state.account && state.account.id == keep.creatorId" @click="deleteKeep(keep.id)">
+                    <button type="button-sm" class="btn btn-sm btn-outline-danger mx-2" v-if="state.account && state.account.id == keep.creatorId" @click="deleteKeep(keep.id)">
                       Delete
                     </button>
                   </div>
@@ -135,4 +143,11 @@ export default {
 </script>
 
 <style scoped>
+.transparent {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.router{
+  text-decoration: none !important;
+  color: black !important;
+}
 </style>

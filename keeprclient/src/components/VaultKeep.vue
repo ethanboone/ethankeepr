@@ -41,12 +41,6 @@
                   </h3>
                   <div class="d-flex flex-row">
                     <p class="mx-2">
-                      Views: {{ keep.views }}
-                    </p>
-                    <p class="mx-2">
-                      Shares: {{ keep.shares }}
-                    </p>
-                    <p class="mx-2">
                       Keeps: {{ keep.keeps }}
                     </p>
                   </div>

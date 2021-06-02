@@ -1,6 +1,11 @@
 <template>
-  <div class="col-5 col-md-2 mx-1 my-2 card rounded">
+  <div class="col-5 col-md-2 mx-1 my-2 card rounded" v-if="state.account">
     <div class="">
+      <div class="d-flex justify-content-end" v-if="state.account.id == vault.creatorId">
+        <button type="button" class="close mb-3" @click="deleteVault(vault.id)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <router-link :to="{name: 'Vault', params: {id: vault.id}}">
         <h4>
           {{ vault.name }}
@@ -38,8 +43,10 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import $ from 'jquery'
+import { vaultsService } from '../services/VaultsService'
+import { AppState } from '../AppState'
 
 export default {
   props: {
@@ -50,11 +57,18 @@ export default {
   },
   setup() {
     const state = reactive({
+      account: computed(() => AppState.account)
     })
     return {
       state,
       details(id) {
         $(`${id}`).modal('toggle')
+      },
+      async deleteVault(id) {
+        const confirm = window.confirm('Are you sure you want to delete this vault?')
+        if (confirm) {
+          await vaultsService.delete(id)
+        }
       }
     }
     // onMounted(() => {})

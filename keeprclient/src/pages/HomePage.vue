@@ -38,6 +38,7 @@
               <div class="form-group">
                 <label for="name">Name</label>
                 <input required
+                       maxlength="25"
                        type="text"
                        class="form-control"
                        id="name"
