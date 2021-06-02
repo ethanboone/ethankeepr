@@ -15,12 +15,14 @@ namespace keeprserver.Controllers
         private readonly VaultsService _service;
         private readonly VaultKeepsService _vkService;
         private readonly KeepsService _keepsService;
+        // private readonly VaultKeepsService _vaultKeepsService;
 
-        public VaultsController(VaultsService service, VaultKeepsService vkService, KeepsService keepsService)
+        public VaultsController(VaultsService service, VaultKeepsService vkService, KeepsService keepsService, VaultKeepsService vaultKeepsService)
         {
             _service = service;
             _vkService = vkService;
             _keepsService = keepsService;
+            // _vaultKeepsService = vaultKeepsService;
         }
 
         [HttpPost]
@@ -147,5 +149,20 @@ namespace keeprserver.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        // [HttpGet("{vaultId}/keeps/{keepId}")]
+        // public ActionResult<VaultKeep> GetVaultKeepByKeepAndVaultId(int vaultId, int keepId)
+        // {
+        //     try
+        //     {
+        //         VaultKeep vaultKeep = _vaultKeepsService.GetVaultKeepByKeepAndVaultId(vaultId, keepId);
+        //         return Ok(vaultKeep);
+        //     }
+        //     catch (System.Exception)
+        //     {
+
+        //         throw;
+        //     }
+        // }
     }
 }

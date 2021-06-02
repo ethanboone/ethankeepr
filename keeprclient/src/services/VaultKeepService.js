@@ -15,7 +15,11 @@ class VaultKeepService {
   }
 
   async delete(id) {
-    await api.delete(`api/keeps/${id}`)
+    await api.delete(`api/vaultkeeps/${id}`)
+  }
+
+  async getVaultKeepByVaultAndKeepId(vaultId, keepId) {
+    return await api.get(`api/vaultkeeps/${vaultId}/keeps/${keepId}`)
   }
 }
 

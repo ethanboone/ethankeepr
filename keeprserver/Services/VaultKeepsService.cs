@@ -37,5 +37,10 @@ namespace keeprserver.Services
             }
             return vaultKeep;
         }
+
+        internal VaultKeep GetVaultKeepByKeepAndVaultId(int vaultId, int keepId)
+        {
+            return _repo.GetVaultKeepByKeepAndVaultId(vaultId, keepId);
+        }
     }
 }

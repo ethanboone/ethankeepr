@@ -63,5 +63,20 @@ namespace keeprserver.Controllers
             }
 
         }
+
+        [HttpGet("{id1}/keeps/{id2}")]
+        public ActionResult<VaultKeep> GetVaultKeepByKeepAndVaultId(int vaultId, int keepId)
+        {
+            try
+            {
+                VaultKeep vaultKeep = _service.GetVaultKeepByKeepAndVaultId(vaultId, keepId);
+                return Ok(vaultKeep);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ class VaultsService {
 
   async getOne(id) {
     const res = await api.get(`api/vaults/${id}`)
-    AppState.activevault = res.data
+    AppState.activeVault = res.data
   }
 
   async create(body) {
