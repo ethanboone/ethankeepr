@@ -1,5 +1,5 @@
 <template>
-  <div class="column mx-1 my-2 card rounded">
+  <div class="mx-1 my-2 card rounded">
     <div class="">
       <button type="button" class="btn" data-toggle="modal" @click="details(keep.id, keep)">
         <img :src="keep.img" class="w-100" alt="">
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { reactive, computed, onMounted } from 'vue'
+import { reactive, computed } from 'vue'
 import $ from 'jquery'
 import { keepsService } from '../services/KeepsService'
 import { AppState } from '../AppState'
@@ -122,10 +122,8 @@ export default {
       keepId: null
 
     })
-    onMounted(async() => {
-      state.vaultKeep = await vaultKeepService.getVaultKeepByVaultAndKeepId(state.vault.id, state.keepId)
-      logger.log(state.vaultKeep)
-    })
+    // onMounted(async() => {
+    // })
     return {
       state,
       details(id, body) {
@@ -152,7 +150,11 @@ export default {
       },
       async removeKeep(id) {
         try {
-          await vaultKeepService.delete(state.vaultKeep.id)
+          const confirm = window.confirm('Are you sure you want to remove this keep from the vault?')
+          if (confirm) {
+            await vaultKeepService.getVaultKeepByVaultAndKeepId(state.vault.id, id)
+            await vaultKeepService.delete(state.vaultKeep.id)
+          }
         } catch (error) {
           logger.error(error)
         }

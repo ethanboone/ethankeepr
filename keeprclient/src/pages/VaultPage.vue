@@ -10,9 +10,11 @@
         </p>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-12 d-flex card-columns my-4">
-        <VaultKeep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+    <div class="d-flex row my-5 justify-content-center">
+      <div class="col-12">
+        <div class="card-columns">
+          <VaultKeep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+        </div>
       </div>
     </div>
   </div>
