@@ -1,5 +1,5 @@
 <template>
-  <div class="column mx-1 my-2 rounded bg-card border-0">
+  <div class="column mx-1 my-2 rounded bg-card border-0 shadow-lg">
     <div class="border-0">
       <div class="card bg-dark text-white border-0">
         <img :src="keep.img" class="card-img" alt="keep image">
