@@ -19,7 +19,7 @@ jobs:
       - name: Set Env Vars
         uses: microsoft/variable-substitution@v1 
         with:
-          files: './YOURSERVERNAME/appsettings.json'
+          files: './keeprserver/appsettings.json'
         env:
           CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
           AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
@@ -42,4 +42,4 @@ jobs:
           # Name of the heroku application to which the build is to be sent.
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 ### IMPORTANT PART if your file is in your server folder change this, if it is at the top level you will need to change the path on the DOCKERFILE ###
-          dockerfile_directory: ./YOURSERVERNAME
+          dockerfile_directory: ./keeprserver
