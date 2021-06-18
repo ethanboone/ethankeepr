@@ -106,7 +106,7 @@ namespace keepr.Server
                 app.UseCors("CorsDevPolicy");
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             // NOTE use to serve your built client
             app.UseDefaultFiles();
